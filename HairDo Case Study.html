@@ -1,0 +1,743 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>HairDo Case Study</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap">
+<style>
+/* Layout concept: long editorial case study, one wide interactive phone prototype in the middle with a rationale panel beside it. */
+:root{
+  --bg:#F5F3F7; --surface:#FFFFFF; --ink:#1F1A26; --muted:#645C70; --line:#E0DAE7;
+  --accent:#5B2A86; --accent-ink:#FFFFFF; --accent-soft:#EBE2F5;
+  --offer:#B84A1B; --offer-soft:#FBE6DB; --good:#1B7448; --good-soft:#DCF1E5;
+  --skin:#E4BFA3;
+  --f-display:'Bricolage Grotesque','Segoe UI',system-ui,sans-serif;
+  --f-body:'DM Sans','Segoe UI',system-ui,sans-serif;
+  --f-mono:'DM Mono',ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#151219; --surface:#201B28; --ink:#F1EDF6; --muted:#A8A0B5; --line:#362F42;
+  --accent:#C2A0EE; --accent-ink:#1a1222; --accent-soft:#2f2440;
+  --offer:#F29A6B; --offer-soft:#3a2519; --good:#6FD0A0; --good-soft:#1c3329; --skin:#C99C80; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#151219; --surface:#201B28; --ink:#F1EDF6; --muted:#A8A0B5; --line:#362F42;
+  --accent:#C2A0EE; --accent-ink:#1a1222; --accent-soft:#2f2440;
+  --offer:#F29A6B; --offer-soft:#3a2519; --good:#6FD0A0; --good-soft:#1c3329; --skin:#C99C80; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;
+  padding-block:0;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3,h4{font-family:var(--f-display);line-height:1.15;text-wrap:balance;margin:0}
+p{margin:0}
+.wrap{max-width:1080px;margin:0 auto}
+section{padding-block:56px;border-top:1px solid var(--line)}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+h2{font-size:clamp(28px,4vw,40px);margin-top:8px}
+h3{font-size:20px}
+.lede{max-width:65ch;color:var(--muted);margin-top:14px;font-size:17px}
+.grid{display:grid;gap:16px;margin-top:28px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr))}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;min-width:0}
+.card h3{margin-bottom:8px}
+.card p,.card li{color:var(--muted);font-size:15px}
+.card ul{margin:8px 0 0;padding-left:18px}
+.pill{display:inline-block;font-size:12px;font-family:var(--f-mono);padding:3px 9px;border-radius:99px;background:var(--accent-soft);color:var(--accent)}
+.note{font-size:13px;color:var(--muted);border-left:3px solid var(--offer);padding:6px 12px;margin-top:20px;background:var(--offer-soft);border-radius:0 8px 8px 0;max-width:75ch}
+.tablewrap{overflow-x:auto;margin-top:24px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:14px}
+th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500}
+tr:last-child td{border-bottom:0}
+/* header */
+.top{display:flex;justify-content:space-between;align-items:center;padding-block:18px;gap:12px;flex-wrap:wrap}
+.logo{font-family:var(--f-display);font-weight:700;font-size:22px;letter-spacing:-.02em}
+.logo b{color:var(--accent)}
+.toplinks{display:flex;gap:6px;flex-wrap:wrap}
+.toplinks a{font-size:13px;color:var(--muted);text-decoration:none;padding:5px 10px;border-radius:99px}
+.toplinks a:hover,.toplinks a:focus-visible{background:var(--accent-soft);color:var(--accent);outline:none}
+.hero{padding-block:40px 56px;display:grid;gap:32px;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);align-items:center}
+.hero h1{font-size:clamp(40px,7vw,76px);letter-spacing:-.03em}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
+.meta span{font-size:13px;border:1px solid var(--line);border-radius:99px;padding:4px 12px;color:var(--muted);background:var(--surface)}
+.cta{display:inline-block;margin-top:26px;background:var(--accent);color:var(--accent-ink);padding:12px 22px;border-radius:10px;text-decoration:none;font-weight:700}
+.cta:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.heroart{display:flex;gap:10px;justify-content:center}
+.heroart svg{width:100%;max-width:120px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:6px}
+/* story */
+.story{display:grid;gap:0;margin-top:28px;max-width:760px}
+.beat{display:grid;grid-template-columns:92px minmax(0,1fr);gap:16px;padding:18px 0;border-bottom:1px dashed var(--line)}
+.beat time{font-family:var(--f-mono);font-size:13px;color:var(--accent);padding-top:3px}
+.beat h4{font-size:17px;margin-bottom:4px}
+.beat p{color:var(--muted);font-size:15px}
+.quote{font-family:var(--f-display);font-size:clamp(20px,3vw,28px);max-width:30ch;margin-top:32px;padding-left:18px;border-left:4px solid var(--accent)}
+/* process */
+.phases{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:10px;margin-top:28px}
+.phase{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px}
+.phase small{font-family:var(--f-mono);color:var(--accent);font-size:11px}
+.phase b{display:block;font-family:var(--f-display);margin:4px 0;font-size:16px}
+.phase span{font-size:13px;color:var(--muted)}
+.bar{height:6px;border-radius:9px;background:var(--line);overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;background:var(--accent)}
+.stat{font-family:var(--f-display);font-size:34px;color:var(--accent);line-height:1}
+/* moscow */
+.moscow h3{display:flex;justify-content:space-between;align-items:center}
+/* wireframes */
+.wfs{display:flex;gap:14px;overflow-x:auto;padding-bottom:10px;margin-top:24px}
+.wf{flex:0 0 150px;border:1.5px solid var(--muted);border-radius:16px;padding:8px;background:var(--surface);display:grid;gap:6px;align-content:start;height:290px}
+.wf i{display:block;background:var(--line);border-radius:5px;height:14px}
+.wf i.h{height:36px}.wf i.t{height:8px;width:60%}.wf i.a{background:var(--accent);opacity:.7;height:20px}
+.wf i.r{display:grid}
+.wfrow{display:flex;gap:5px}.wfrow i{flex:1;height:40px}
+.wfcap{font-size:12px;text-align:center;color:var(--muted);font-family:var(--f-mono);margin-top:6px}
+/* flow */
+.flowbox{margin-top:24px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;overflow-x:auto}
+/* tokens preview */
+.sw{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.sw div{width:84px;font-size:11px;font-family:var(--f-mono);color:var(--muted)}
+.sw i{display:block;height:44px;border-radius:10px;border:1px solid var(--line);margin-bottom:4px}
+.typeS{display:grid;gap:6px;margin-top:12px}
+/* proto */
+.protowrap{display:grid;grid-template-columns:minmax(0,400px) minmax(0,1fr);gap:32px;margin-top:28px;align-items:start}
+.phone{width:100%;max-width:392px;height:760px;border:10px solid var(--ink);border-radius:44px;background:var(--bg);display:flex;flex-direction:column;overflow:hidden;position:relative;margin:0 auto}
+.status{display:flex;justify-content:space-between;font-size:12px;font-weight:700;padding:10px 22px 4px;background:var(--bg)}
+.screen{flex:1;overflow-y:auto;padding:8px 16px 90px;scrollbar-width:thin}
+.screen h2{font-size:24px;margin:0}
+.pnav{position:absolute;left:0;right:0;bottom:0;display:flex;background:var(--surface);border-top:1px solid var(--line);padding:6px 6px 10px}
+.pnav button{flex:1;border:0;background:none;color:var(--muted);font:500 12px var(--f-body);padding:8px 4px;border-radius:10px;cursor:pointer}
+.pnav button[aria-current="true"]{color:var(--accent);background:var(--accent-soft);font-weight:700}
+.pnav button:focus-visible,.screen button:focus-visible,.screen input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.p-top{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.back{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;width:34px;height:34px;cursor:pointer;font-size:16px}
+.sub{color:var(--muted);font-size:13px}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:6px 12px;border-radius:99px;font:500 13px var(--f-body);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.search{width:100%;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:11px 14px;border-radius:12px;font:15px var(--f-body);margin-top:10px}
+.h-sec{display:flex;justify-content:space-between;align-items:baseline;margin:18px 0 8px}
+.h-sec h3{font-size:17px}
+.hscroll{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin}
+.hd{flex:0 0 128px;border:1px solid var(--line);background:var(--surface);border-radius:14px;padding:6px 6px 10px;text-align:left;cursor:pointer;color:var(--ink);font-family:var(--f-body)}
+.hd svg{width:100%;height:92px;border-radius:10px;display:block}
+.hd b{display:block;font-size:13px;margin-top:6px;line-height:1.25}
+.hd small{color:var(--muted);font-size:11px}
+.care{flex:0 0 150px;border:1px solid var(--line);background:var(--surface);border-radius:14px;padding:12px;text-align:left;cursor:pointer;color:var(--ink);font-family:var(--f-body)}
+.care b{display:block;font-size:14px}.care small{color:var(--muted);font-size:12px;display:block;margin-top:2px}
+.care .pill{margin-top:8px}
+.offerstrip{border:1px dashed var(--offer);background:var(--offer-soft);border-radius:12px;padding:10px 12px;display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:8px;width:100%;text-align:left;cursor:pointer;color:var(--ink);font-family:var(--f-body)}
+.offerstrip b{font-size:13px;color:var(--offer)}.offerstrip span{font-size:12px;color:var(--muted)}
+.prio{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-top:6px}
+.prio summary{cursor:pointer;font-weight:700;font-size:14px}
+.prio label{display:grid;grid-template-columns:78px 1fr 16px;align-items:center;gap:8px;font-size:13px;margin-top:8px}
+.prio input[type=range]{width:100%;accent-color:var(--accent)}
+.best{background:var(--accent);color:var(--accent-ink);border-radius:18px;padding:16px;margin-top:12px}
+.best .tag{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;opacity:.85}
+.best h3{font-size:22px;margin:4px 0}
+.best ul{list-style:none;margin:10px 0;padding:0;display:grid;gap:4px;font-size:13px}
+.best li:before{content:"✓ ";font-weight:700}
+.best .row{display:flex;justify-content:space-between;align-items:flex-end;gap:10px}
+.score{width:58px;height:58px;border-radius:50%;border:3px solid currentColor;display:grid;place-items:center;font-family:var(--f-display);font-weight:700;font-size:18px;flex:none}
+.score small{font-size:10px;display:block;margin-top:-4px;text-align:center;opacity:.8;font-family:var(--f-body);font-weight:400}
+.btn{border:0;background:var(--accent);color:var(--accent-ink);padding:11px 16px;border-radius:12px;font:700 14px var(--f-body);cursor:pointer;width:100%}
+.best .btn{background:var(--accent-ink);color:var(--accent)}
+.btn.ghost{background:var(--accent-soft);color:var(--accent)}
+.btn.sm{width:auto;padding:8px 12px;font-size:13px}
+.sc{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px;margin-top:10px;display:grid;gap:8px}
+.sc .r1{display:flex;justify-content:space-between;gap:10px}
+.sc b.n{font-family:var(--f-display);font-size:16px}
+.price{text-align:right;white-space:nowrap}
+.price s{color:var(--muted);font-size:12px;display:block}
+.price b{font-family:var(--f-display);font-size:18px}
+.facts{display:flex;gap:6px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+.facts span{background:var(--bg);border-radius:8px;padding:2px 8px}
+.offerchip{background:var(--offer-soft);color:var(--offer);font-size:12px;font-weight:700;border-radius:8px;padding:2px 8px;display:inline-block}
+.cmp{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
+.cmpbar{position:absolute;left:14px;right:14px;bottom:64px;background:var(--ink);color:var(--bg);border-radius:14px;padding:10px 12px;display:flex;justify-content:space-between;align-items:center;font-size:13px;z-index:3}
+.cmpbar button{border:0;background:var(--accent);color:var(--accent-ink);border-radius:9px;padding:7px 12px;font:700 13px var(--f-body);cursor:pointer}
+.ct{display:grid;gap:0;margin-top:10px;font-size:12px;background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.ct .rw{display:grid;border-bottom:1px solid var(--line)}
+.ct .rw:last-child{border:0}
+.ct .rw>div{padding:8px 6px;min-width:0;overflow-wrap:anywhere}
+.ct .lab{color:var(--muted);font-family:var(--f-mono);font-size:10px;text-transform:uppercase}
+.ct .win{background:var(--good-soft);color:var(--good);font-weight:700}
+.ct .hd2{font-family:var(--f-display);font-size:13px;font-weight:700}
+.hero2{border-radius:18px;padding:16px;color:#fff;background:linear-gradient(135deg,#5B2A86,#B0457A);margin-bottom:10px}
+.hero2 h2{color:#fff}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin:8px 0}
+.tabs button{flex:1;border:0;background:none;padding:8px 2px;font:500 13px var(--f-body);color:var(--muted);cursor:pointer;border-bottom:2px solid transparent}
+.tabs button[aria-selected="true"]{color:var(--accent);border-color:var(--accent);font-weight:700}
+.li{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
+.li small{color:var(--muted);display:block}
+.stylist{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);width:100%;border-left:0;border-right:0;border-top:0;background:none;text-align:left;color:var(--ink);font-family:var(--f-body);cursor:pointer}
+.stylist[aria-pressed="true"]{background:var(--accent-soft);border-radius:10px;padding-inline:8px}
+.av{width:40px;height:40px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-family:var(--f-display);font-weight:700;flex:none}
+.sum{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px;margin-top:12px;font-size:14px}
+.sum div{display:flex;justify-content:space-between;padding:3px 0}
+.sum .tot{border-top:1px solid var(--line);margin-top:6px;padding-top:8px;font-weight:700;font-size:16px}
+.done{text-align:center;padding-top:40px}
+.done .ok{width:72px;height:72px;border-radius:50%;background:var(--good-soft);color:var(--good);display:grid;place-items:center;font-size:34px;margin:0 auto 14px}
+.empty{padding:24px;text-align:center;color:var(--muted);font-size:14px}
+/* side panel */
+.side{display:grid;gap:14px;min-width:0}
+.steps{counter-reset:s;list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.steps li{counter-increment:s;padding-left:34px;position:relative;font-size:15px;color:var(--muted)}
+.steps li:before{content:counter(s);position:absolute;left:0;top:0;width:24px;height:24px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-size:12px;font-weight:700}
+.why{border-color:var(--accent);background:var(--accent-soft)}
+.why h3{color:var(--accent);font-size:13px;font-family:var(--f-mono);letter-spacing:.08em;text-transform:uppercase}
+.why p{color:var(--ink)}
+.footer{padding-block:40px;color:var(--muted);font-size:14px}
+@media (max-width:820px){.hero{grid-template-columns:1fr}.protowrap{grid-template-columns:1fr}.beat{grid-template-columns:1fr;gap:2px}}
+@media (prefers-reduced-motion:no-preference){.chip,.btn,.hd,.care{transition:transform .12s}.hd:active,.care:active{transform:scale(.97)}}
+</style>
+
+<div class="wrap">
+<header class="top">
+  <div class="logo">Hair<b>Do</b></div>
+  <nav class="toplinks" aria-label="Sections">
+    <a href="#story">Story</a><a href="#process">Process</a><a href="#discover">Discover</a><a href="#define">Define</a><a href="#ideate">Ideate</a><a href="#design">Design</a><a href="#prototype">Prototype</a><a href="#test">Test</a><a href="#launch">Launch</a>
+  </nav>
+</header>
+
+<div class="hero">
+  <div>
+    <span class="eyebrow">UI/UX case study · Salon discovery app</span>
+    <h1>Find the salon that fits your <em>hairdo</em>, budget and Saturday.</h1>
+    <p class="lede">HairDo compares nearby salons for the exact style or treatment you want, then recommends the best one for what you care about most. This page walks through the whole design journey from idea to launch and includes a working prototype.</p>
+    <div class="meta"><span>Mobile app · iOS and Android</span><span>10-week design sprint</span><span>Sample salon data</span></div>
+    <a class="cta" href="#prototype">Try the prototype</a>
+  </div>
+  <div class="heroart" id="heroart" aria-hidden="true"></div>
+</div>
+
+<section id="story">
+  <span class="eyebrow">Use-case story</span>
+  <h2>Meera's Saturday</h2>
+  <p class="lede">Meera, 29, wants a honey balayage before a cousin's wedding in three weeks. She has a ₹5,000 budget, one free Saturday and no idea which nearby salon to trust.</p>
+  <div class="story">
+    <div class="beat"><time>Thu 21:10</time><div><h4>The trigger</h4><p>She saves a balayage photo from her feed. Last time she walked into a salon on a hunch and paid ₹6,500 for a colour that faded in a month. She does not want a repeat.</p></div></div>
+    <div class="beat"><time>Thu 21:14</time><div><h4>Browse by style, not by salon</h4><p>In HairDo she taps "Honey Balayage" on the home screen. The app already knows the service she means, so she does not need to read five salon menus to find the matching line item.</p></div></div>
+    <div class="beat"><time>Thu 21:16</time><div><h4>Tell the app what matters</h4><p>Three sliders: price matters most, stylist skill next, distance least. Five salons are ranked in under a second and one is marked "Best for you" with plain reasons.</p></div></div>
+    <div class="beat"><time>Thu 21:20</time><div><h4>Compare the close calls</h4><p>She ticks the top three and opens a side-by-side table. One salon has a 20% colour offer and the lowest price. Another has a 4.8 rating but costs about ₹3,000 more. The table highlights the winner in each row.</p></div></div>
+    <div class="beat"><time>Thu 21:26</time><div><h4>Pick a stylist and a slot</h4><p>She opens the winning salon, sees the colourist's 9 years of experience and 4.9 rating, picks Saturday 11:00 and confirms. The offer is applied automatically and the total is shown before she commits.</p></div></div>
+    <div class="beat"><time>Sat 13:40</time><div><h4>The result</h4><p>She leaves with the colour she wanted, ₹630 saved through the first-visit offer and a review prompt that asks two questions: did the result match the style photo, and was the price what the app showed?</p></div></div>
+  </div>
+  <p class="quote">"I finally compared on the thing I care about, the result, instead of guessing."</p>
+  <p class="note">This is a fictional persona and story written for the case study.</p>
+</section>
+
+<section id="process">
+  <span class="eyebrow">Process overview</span>
+  <h2>Eight phases from idea to launch</h2>
+  <p class="lede">Each phase has one output the next phase depends on. The timeline assumes one designer, one researcher and part-time engineering input.</p>
+  <div class="phases">
+    <div class="phase"><small>WEEK 1</small><b>Idea</b><span>Vision, opportunity, assumptions</span><div class="bar"><i style="width:100%"></i></div></div>
+    <div class="phase"><small>WEEKS 1–2</small><b>Discover</b><span>Interviews, audit, diary study</span><div class="bar"><i style="width:100%"></i></div></div>
+    <div class="phase"><small>WEEK 3</small><b>Define</b><span>Personas, problem, metrics</span><div class="bar"><i style="width:100%"></i></div></div>
+    <div class="phase"><small>WEEK 4</small><b>Ideate</b><span>Features, IA, user flows</span><div class="bar"><i style="width:100%"></i></div></div>
+    <div class="phase"><small>WEEKS 5–6</small><b>Design</b><span>Wireframes, UI, design system</span><div class="bar"><i style="width:100%"></i></div></div>
+    <div class="phase"><small>WEEK 7</small><b>Prototype</b><span>Clickable, data-driven</span><div class="bar"><i style="width:100%"></i></div></div>
+    <div class="phase"><small>WEEKS 8–9</small><b>Test</b><span>Usability, iterate</span><div class="bar"><i style="width:100%"></i></div></div>
+    <div class="phase"><small>WEEK 10</small><b>Launch</b><span>Handoff, pilot, measure</span><div class="bar"><i style="width:100%"></i></div></div>
+  </div>
+</section>
+
+<section id="discover">
+  <span class="eyebrow">Phase 1 and 2 · Idea and discover</span>
+  <h2>Choosing a salon is a trust problem, not a search problem</h2>
+  <p class="lede">The idea started from one observation: people choose a hairdo first and a salon second, but every existing way to book works the other way round.</p>
+  <div class="grid g3">
+    <div class="card"><h3>Vision</h3><p>Help anyone get the hairdo they imagined, at a fair price, from a stylist who has done it well before.</p></div>
+    <div class="card"><h3>Opportunity</h3><p>Prices are hidden, offers are scattered across posters and social posts, and stylist skill is invisible until the chair.</p></div>
+    <div class="card"><h3>Riskiest assumption</h3><p>People will tell an app what matters to them and trust a ranked answer. Testing this early shaped the priorities sliders.</p></div>
+  </div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Method</th><th>Who</th><th>What we wanted to learn</th></tr></thead>
+    <tbody>
+      <tr><td>Contextual interviews</td><td>12 salon-goers, ages 20–45</td><td>How they pick a style and a salon, and what went wrong last time</td></tr>
+      <tr><td>Salon owner and stylist interviews</td><td>6 owners, 6 stylists</td><td>Pricing habits, how offers are run, what makes a no-show</td></tr>
+      <tr><td>Competitive audit</td><td>4 ways people find salons today</td><td>Where price, offers and stylist info are missing</td></tr>
+      <tr><td>7-day diary study</td><td>8 participants</td><td>How often hair decisions come up and what triggers them</td></tr>
+    </tbody></table></div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>How people find salons today</th><th>Strength</th><th>Gap HairDo fills</th></tr></thead>
+    <tbody>
+      <tr><td>Walk-in or word of mouth</td><td>Trusted when a friend recommends</td><td>No price check, no comparison, limited to your circle</td></tr>
+      <tr><td>Map listings</td><td>Distance and ratings</td><td>Ratings are about the salon, not the hairdo or the stylist</td></tr>
+      <tr><td>Social media</td><td>Great style inspiration</td><td>No prices, no booking, no proof of who did the work</td></tr>
+      <tr><td>Generic booking apps</td><td>Slot booking</td><td>Salon-first browsing, offers buried, no side-by-side compare</td></tr>
+    </tbody></table></div>
+  <div class="grid g2">
+    <div class="card"><h3>Insight 1 · Style first</h3><p>Most interviewees described the look they wanted before naming a service. Browsing by hairdo removes a translation step.</p></div>
+    <div class="card"><h3>Insight 2 · Price is a surprise</h3><p>The final bill was often higher than expected because length, colour level and add-ons were not quoted up front.</p></div>
+    <div class="card"><h3>Insight 3 · The stylist matters more than the salon</h3><p>People followed a stylist between salons. Skill for this service needs to be visible.</p></div>
+    <div class="card"><h3>Insight 4 · Offers are hard to compare</h3><p>A "20% off" and a "₹1,000 off" cannot be compared without maths. The app should show what you actually pay.</p></div>
+  </div>
+  <p class="note">The research plan is realistic, but the findings above are illustrative hypotheses for this case study. Validate them with your own interviews before building.</p>
+</section>
+
+<section id="define">
+  <span class="eyebrow">Phase 3 · Define</span>
+  <h2>Who we design for, and what success looks like</h2>
+  <div class="grid g2">
+    <div class="card"><span class="pill">Primary persona</span><h3 style="margin-top:10px">Meera, 29 · Product analyst</h3><p>Colours her hair twice a year, researches before spending over ₹3,000, books on her phone, prefers weekend mornings.</p><ul><li>Goal: get the look from her saved photo without a surprise bill</li><li>Frustration: cannot tell who will actually do the work</li><li>Behaviour: compares two or three options, then books</li></ul></div>
+    <div class="card"><span class="pill">Secondary persona</span><h3 style="margin-top:10px">Arjun, 34 · Sales manager</h3><p>Wants a quick, reliable cut near work and rarely changes his style.</p><ul><li>Goal: fastest good cut within 20 minutes of the office</li><li>Frustration: unclear waiting times and weekday offers</li><li>Behaviour: rebooks the same stylist once he finds one</li></ul></div>
+  </div>
+  <div class="grid g2">
+    <div class="card"><h3>Problem statement</h3><p>Salon-goers cannot confidently choose where to get a specific hairdo because price, stylist skill and offers are hidden or hard to compare. This leads to overpaying, disappointing results and unused offers.</p></div>
+    <div class="card"><h3>How might we…</h3><ul><li>…let people start from the hairdo they want?</li><li>…show the real price after offers before they book?</li><li>…make stylist skill for this service visible?</li><li>…turn five salons into one clear recommendation?</li></ul></div>
+  </div>
+  <div class="grid g3">
+    <div class="card"><div class="stat">&lt; 3 min</div><p>Time from opening the app to a recommended salon.</p></div>
+    <div class="card"><div class="stat">35%</div><p>Target share of sessions that reach a booking.</p></div>
+    <div class="card"><div class="stat">≥ 80</div><p>Target usability score (SUS) in testing.</p></div>
+  </div>
+  <p class="note">Targets are proposed goals to be confirmed with the business.</p>
+</section>
+
+<section id="ideate">
+  <span class="eyebrow">Phase 4 · Ideate</span>
+  <h2>What goes into version 1</h2>
+  <p class="lede">Features were scored on user value and build effort, then grouped by priority. The five features you asked for are all in the first group.</p>
+  <div class="grid g2 moscow">
+    <div class="card"><h3>Must have <span class="pill">v1</span></h3><ul><li><b>Hairdo gallery</b> with filters for face shape</li><li><b>Hair-care treatments</b> with duration, results and upkeep</li><li><b>Price comparison</b> by service with offers applied</li><li><b>Offers hub</b> across salons</li><li><b>Stylist profiles</b> with skills, experience, ratings</li><li><b>Smart ranking</b> by your priorities, plus compare</li><li>Slot booking and confirmation</li></ul></div>
+    <div class="card"><h3>Should have <span class="pill">v1.1</span></h3><ul><li>Saved styles and favourite stylists</li><li>Reminders and rescheduling</li><li>Reviews with before and after photos</li><li>Payment inside the app</li></ul></div>
+    <div class="card"><h3>Could have <span class="pill">v2</span></h3><ul><li>Camera try-on for colour and cuts</li><li>Loyalty points and referral credits</li><li>Home-service stylists</li></ul></div>
+    <div class="card"><h3>Not now</h3><ul><li>Product shop</li><li>Social feed</li><li>Salon-side inventory tools</li></ul></div>
+  </div>
+  <h3 style="margin-top:36px">Core user flow</h3>
+  <div class="flowbox"><pre class="mermaid">
+flowchart LR
+A[Open HairDo] --> B[Pick a hairdo or treatment]
+B --> C[Set priorities]
+C --> D[Ranked salons with Best for you]
+D --> E{Still unsure?}
+E -- Yes --> F[Compare 2 to 3 side by side]
+F --> G[Salon detail]
+E -- No --> G
+G --> H[Choose stylist and slot]
+H --> I[Confirm booking]
+I --> J[Reminder and review]
+  </pre></div>
+  <h3 style="margin-top:36px">Information architecture</h3>
+  <div class="grid g3">
+    <div class="card"><h3>Explore</h3><ul><li>Search</li><li>Hairdo gallery and face-shape filter</li><li>Hair-care treatments</li><li>Offers near you</li></ul></div>
+    <div class="card"><h3>Salons</h3><ul><li>Ranked results and priorities</li><li>Compare table</li><li>Salon detail: overview, stylists, menu, offers</li><li>Book and confirm</li></ul></div>
+    <div class="card"><h3>Offers</h3><ul><li>All offers for the chosen service</li><li>You-pay price after the offer</li><li>Jump to the salon</li></ul></div>
+  </div>
+</section>
+
+<section id="design">
+  <span class="eyebrow">Phase 5 · Design</span>
+  <h2>From wireframes to a visual system</h2>
+  <p class="lede">Low-fidelity wireframes settled the layout of the five key screens before any colour was chosen. The comparison and the recommendation card got the most iteration.</p>
+  <div class="wfs" role="img" aria-label="Five low fidelity wireframes: Explore, Results, Compare, Salon detail, Book">
+    <div><div class="wf"><i class="t"></i><i class="a"></i><div class="wfrow"><i></i><i></i></div><i class="t"></i><div class="wfrow"><i></i><i></i></div><i></i><i></i></div><div class="wfcap">Explore</div></div>
+    <div><div class="wf"><i class="t"></i><i class="h"></i><i class="a" style="height:60px"></i><i></i><i></i><i></i></div><div class="wfcap">Results</div></div>
+    <div><div class="wf"><i class="t"></i><div class="wfrow"><i></i><i></i><i></i></div><i></i><i></i><i></i><i></i><i></i></div><div class="wfcap">Compare</div></div>
+    <div><div class="wf"><i class="h" style="height:60px"></i><div class="wfrow"><i style="height:14px"></i><i style="height:14px"></i><i style="height:14px"></i></div><i></i><i></i><i></i><i class="a"></i></div><div class="wfcap">Salon detail</div></div>
+    <div><div class="wf"><i class="t"></i><i></i><div class="wfrow"><i style="height:24px"></i><i style="height:24px"></i><i style="height:24px"></i></div><i class="h"></i><i class="a"></i></div><div class="wfcap">Book</div></div>
+  </div>
+  <div class="grid g2">
+    <div class="card"><h3>Colour</h3><p>Deep plum for trust and a creative feel. A copper tone is reserved for offers so savings are always easy to spot. Green marks the best value in each comparison row.</p>
+      <div class="sw"><div><i style="background:var(--accent)"></i>Plum</div><div><i style="background:var(--offer)"></i>Offer</div><div><i style="background:var(--good)"></i>Best value</div><div><i style="background:var(--bg)"></i>Canvas</div></div></div>
+    <div class="card"><h3>Type</h3><p>A friendly grotesque for headings and prices, a clean sans for reading, a mono face for small labels.</p>
+      <div class="typeS"><span style="font-family:var(--f-display);font-size:26px;font-weight:700">Honey Balayage ₹3,570</span><span>Body text reads at 15px with 1.6 spacing.</span><span style="font-family:var(--f-mono);font-size:12px">4.9 ★ · 9 YRS · 1.2 KM</span></div></div>
+  </div>
+  <div class="grid g3">
+    <div class="card"><h3>Price you pay</h3><p>The original price is struck through and the after-offer price is large. People never do offer maths.</p></div>
+    <div class="card"><h3>Reasons, not just a score</h3><p>Every recommendation lists up to three plain reasons so the ranking is explainable and trusted.</p></div>
+    <div class="card"><h3>Accessibility</h3><p>Text and controls meet WCAG AA contrast in light and dark. Targets are at least 44px. Meaning is never colour alone, because the best cell also carries bold text.</p></div>
+  </div>
+</section>
+
+<section id="prototype">
+  <span class="eyebrow">Phase 6 · Prototype</span>
+  <h2>Compare salons near you and get the best option</h2>
+  <p class="lede">This prototype is fully clickable. The ranking is calculated live from your priorities, offers are applied to each price, and the compare table highlights the best value per row.</p>
+  <div class="protowrap">
+    <div class="phone" aria-label="HairDo prototype">
+      <div class="status"><span>9:41</span><span>HairDo</span></div>
+      <div class="screen" id="screen" tabindex="-1"></div>
+      <nav class="pnav" id="pnav" aria-label="Prototype navigation"></nav>
+    </div>
+    <div class="side">
+      <div class="card"><h3>Try this path</h3>
+        <ol class="steps">
+          <li>On Explore, tap <b>Honey Balayage</b>.</li>
+          <li>Open <b>What matters to you</b> and drag Price to the maximum, Distance to 0. Watch the winner change.</li>
+          <li>Tick three salons and open <b>Compare</b>.</li>
+          <li>Open the winner, check <b>Stylists</b> and <b>Offers</b>, then book a slot.</li>
+          <li>Try a hair-care treatment, or the Offers tab.</li>
+        </ol></div>
+      <div class="card why" id="why"></div>
+      <p class="note">Salon names, prices, offers and distances are made-up sample data. With your city and a few real salons, this same engine can run on real data.</p>
+    </div>
+  </div>
+</section>
+
+<section id="test">
+  <span class="eyebrow">Phase 7 · Test and iterate</span>
+  <h2>Five tasks, five testers per round</h2>
+  <p class="lede">Moderated sessions on the clickable prototype. Participants think aloud while completing tasks, and each round ends with a short usability survey.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Task</th><th>Success measure</th></tr></thead>
+    <tbody>
+      <tr><td>Find the cheapest place for a hair spa</td><td>Completes in under 60 seconds</td></tr>
+      <tr><td>Find the best salon for a balayage if skill matters most</td><td>Uses priorities and names the winner</td></tr>
+      <tr><td>Compare two salons and state which saves more</td><td>Reads the you-pay row correctly</td></tr>
+      <tr><td>Book Saturday with a chosen stylist</td><td>Reaches confirmation without help</td></tr>
+      <tr><td>Find an active offer</td><td>Opens the Offers tab or an offer chip</td></tr>
+    </tbody></table></div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Likely issue to watch for</th><th>Design response already built in</th></tr></thead>
+    <tbody>
+      <tr><td>Sliders feel abstract</td><td>Defaults are preset, the result updates live, and the card explains why it won</td></tr>
+      <tr><td>Percent and flat offers confuse people</td><td>Always show the final price you pay</td></tr>
+      <tr><td>Too many columns in compare</td><td>Limit to three salons and highlight winners</td></tr>
+      <tr><td>Unsure which stylist to pick</td><td>Stylists who match the service are shown first with their rating</td></tr>
+    </tbody></table></div>
+  <p class="note">These are test-plan hypotheses, not results. Run the sessions with real users and record the actual findings here.</p>
+</section>
+
+<section id="launch">
+  <span class="eyebrow">Phase 8 · Handoff and launch</span>
+  <h2>Shipping the design</h2>
+  <div class="grid g3">
+    <div class="card"><h3>Handoff</h3><ul><li>Design tokens and components documented</li><li>States for loading, empty, error and offline</li><li>Ranking formula and edge cases specified</li><li>Accessibility checklist per screen</li></ul></div>
+    <div class="card"><h3>Pilot</h3><ul><li>One neighbourhood, 15 to 20 partner salons</li><li>Salon onboarding: menu, prices, offers, stylist skills</li><li>Weekly check-in with owners</li></ul></div>
+    <div class="card"><h3>Launch</h3><ul><li>Closed beta with 200 users</li><li>Public launch in the pilot area</li><li>Expand one area at a time</li></ul></div>
+  </div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Metric</th><th>Why it matters</th></tr></thead>
+    <tbody>
+      <tr><td>Time to first recommendation</td><td>Shows whether the flow is fast enough</td></tr>
+      <tr><td>Compare to booking rate</td><td>Shows whether comparison builds confidence</td></tr>
+      <tr><td>Offer redemption rate</td><td>Shows value for users and salons</td></tr>
+      <tr><td>Result-matched-photo score in reviews</td><td>Measures the real outcome, not only the visit</td></tr>
+      <tr><td>Repeat bookings in 90 days</td><td>Measures long-term trust</td></tr>
+    </tbody></table></div>
+  <div class="grid g2">
+    <div class="card"><h3>How the ranking works</h3><p>Each salon gets a 0 to 100 match score. Price after offer, distance, rating, best-stylist skill for the service and offer savings are each scaled across the candidate salons. Your sliders weight them. The top score is "Best for you" and its strongest reasons are shown.</p></div>
+    <div class="card"><h3>What I need from you</h3><ul><li>Your city or area, to swap in real salons</li><li>Who it is for: women, men, or everyone</li><li>iOS, Android or both</li><li>Any brand colours or logo</li><li>Whether salons will pay for listings or the app earns per booking</li></ul></div>
+  </div>
+</section>
+<div class="footer">HairDo case study · Prototype data is sample data.</div>
+</div>
+
+<script>
+/* ---------- data ---------- */
+var SV={cut:{n:'Layered / Styled Cut',m:60},color:{n:'Colour & Balayage',m:150},curl:{n:'Perm & Waves',m:150},updo:{n:'Bridal & Party Updo',m:75},smooth:{n:'Keratin Smoothing',m:150},spa:{n:'Deep Hair Spa',m:60},scalp:{n:'Scalp Detox',m:45},botox:{n:'Hair Botox',m:120}};
+var HAIRDOS=[
+ {id:'h1',n:'Butterfly Layers',s:'cut',shape:'long',c:['#5a3b2e','#8a5a44'],faces:['Oval','Round','Heart'],up:'Trim every 8–10 weeks'},
+ {id:'h2',n:'Textured Bob',s:'cut',shape:'bob',c:['#2b2430','#4a3f57'],faces:['Oval','Square','Heart'],up:'Trim every 6 weeks'},
+ {id:'h3',n:'Curtain Bangs Shag',s:'cut',shape:'wavy',c:['#3d2a25','#6a4a3d'],faces:['Round','Square','Oval'],up:'Trim every 8 weeks'},
+ {id:'h4',n:'Honey Balayage',s:'color',shape:'wavy',c:['#b8793a','#e6b46a'],faces:['Oval','Round','Square','Heart'],up:'Toner every 8–10 weeks'},
+ {id:'h5',n:'Burgundy Gloss',s:'color',shape:'long',c:['#6d1633','#a52a4f'],faces:['Oval','Heart','Square'],up:'Gloss every 6 weeks'},
+ {id:'h6',n:'Beach Waves Perm',s:'curl',shape:'wavy',c:['#7a5a3a','#b08a5e'],faces:['Oval','Square'],up:'Lasts 3–5 months'},
+ {id:'h7',n:'Glass-Smooth Straight',s:'smooth',shape:'long',c:['#1b1620','#3b3346'],faces:['Oval','Round','Heart','Square'],up:'Lasts 3–4 months'},
+ {id:'h8',n:'Bridal Low Bun',s:'updo',shape:'bun',c:['#4a3326','#7b5a43'],faces:['Oval','Round','Heart'],up:'Event styling'}];
+var CARES=[
+ {s:'smooth',b:'Frizzy, unmanageable hair',res:'Lasts 3–4 months'},
+ {s:'botox',b:'Damaged, over-processed hair',res:'Lasts 2–3 months'},
+ {s:'spa',b:'Dry, dull hair',res:'Repeat monthly'},
+ {s:'scalp',b:'Dandruff, oily scalp',res:'Repeat every 6 weeks'}];
+function P(cut,color,curl,updo,smooth,spa,scalp,botox){return {cut:cut,color:color,curl:curl,updo:updo,smooth:smooth,spa:spa,scalp:scalp,botox:botox}}
+var SALONS=[
+ {id:'s1',n:'Studio Kesh',area:'Garden Road',d:1.2,r:4.7,rv:312,hrs:'9:00–21:00',am:['Wash included','Vegan products','AC'],price:P(900,4200,3800,1800,5500,1400,1200,6000),
+  offers:[{l:'First visit 15% off',svc:'all',pct:15}],slots:['11:00','13:30','16:00','18:30'],
+  st:[{n:'Aarav',role:'Senior colourist',y:9,r:4.9,sk:['color','cut']},{n:'Neha',role:'Cut specialist',y:6,r:4.7,sk:['cut','updo']},{n:'Rohan',role:'Smoothing and spa',y:7,r:4.6,sk:['smooth','botox','spa']}]},
+ {id:'s2',n:'Mane Theory',area:'Market Street',d:2.4,r:4.5,rv:198,hrs:'10:00–20:00',am:['Curl bar','Kids chair','AC'],price:P(700,3600,3200,1500,4800,1100,900,5200),
+  offers:[{l:'25% off spa and scalp care',svc:['spa','scalp'],pct:25}],slots:['10:30','12:00','15:00','17:30'],
+  st:[{n:'Ishita',role:'Curl expert',y:8,r:4.8,sk:['curl','cut']},{n:'Kabir',role:'Cut and colour',y:5,r:4.4,sk:['cut','color']}]},
+ {id:'s3',n:'The Cutting Room',area:'Station Lane',d:0.8,r:4.2,rv:421,hrs:'9:00–22:00',am:['Walk-ins','Quick service','AC'],price:P(500,2800,2600,1200,3900,800,700,4300),
+  offers:[{l:'Weekdays: ₹150 off cuts',svc:['cut'],flat:150}],slots:['9:30','11:30','14:00','19:00'],
+  st:[{n:'Sameer',role:'Cut stylist',y:4,r:4.2,sk:['cut']},{n:'Pooja',role:'Colour and spa',y:3,r:4.1,sk:['color','spa']}]},
+ {id:'s4',n:'Glow & Strand',area:'Lakeview',d:3.1,r:4.8,rv:156,hrs:'10:00–21:00',am:['Private rooms','Premium colour','AC'],price:P(1400,5800,4800,2500,7200,1900,1600,7800),
+  offers:[{l:'₹1,000 off keratin and botox',svc:['smooth','botox'],flat:1000}],slots:['10:00','12:30','15:30','18:00'],
+  st:[{n:'Meher',role:'Creative director',y:12,r:4.9,sk:['color','updo','cut']},{n:'Dev',role:'Smoothing master',y:10,r:4.8,sk:['smooth','botox']}]},
+ {id:'s5',n:'Snip Society',area:'Park Avenue',d:1.9,r:4.4,rv:267,hrs:'10:00–21:00',am:['Wash included','Walk-ins','AC'],price:P(800,3400,3000,1400,4500,1000,850,4900),
+  offers:[{l:'20% off colour',svc:['color'],pct:20}],slots:['11:00','13:00','16:30','19:00'],
+  st:[{n:'Tara',role:'Colourist',y:7,r:4.6,sk:['color','curl']},{n:'Vikram',role:'Cut and styling',y:5,r:4.3,sk:['cut','updo','spa']}]}];
+var S={screen:'home',service:'color',hd:'Honey Balayage',w:{price:4,dist:3,rate:3,stylist:3,offer:2},within:99,cmp:[],sid:null,tab:'ov',stylist:null,slot:null,face:'All',q:'',back:[]};
+var $=function(s){return document.querySelector(s)};
+var inr=function(n){return '₹'+Math.round(n).toLocaleString('en-IN')};
+var esc=function(t){return String(t).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
+/* ---------- engine ---------- */
+function calc(s,svc){var base=s.price[svc],best=0,bo=null;s.offers.forEach(function(o){if(o.svc==='all'||o.svc.indexOf(svc)>-1){var v=o.pct?Math.round(base*o.pct/100):o.flat;if(v>best){best=v;bo=o}}});return {base:base,save:best,pay:base-best,offer:bo}}
+function bestStylist(s,svc){var l=s.st.filter(function(x){return x.sk.indexOf(svc)>-1});l.sort(function(a,b){return b.r-a.r});return l[0]||null}
+function norm(v,min,max,inv){if(max===min)return 1;var n=(v-min)/(max-min);return inv?1-n:n}
+function rank(){
+  var svc=S.service,c=SALONS.filter(function(s){return s.d<=S.within});
+  if(!c.length)return [];
+  var rows=c.map(function(s){var p=calc(s,svc),st=bestStylist(s,svc);return {s:s,p:p,st:st,sr:st?st.r:0}});
+  var f=function(k){return rows.map(function(r){return k(r)})};
+  var mm=function(a){return [Math.min.apply(0,a),Math.max.apply(0,a)]};
+  var pr=mm(f(function(r){return r.p.pay})),di=mm(f(function(r){return r.s.d})),ra=mm(f(function(r){return r.s.r})),sr=mm(f(function(r){return r.sr})),of=mm(f(function(r){return r.p.save/r.p.base}));
+  var W=S.w,tw=W.price+W.dist+W.rate+W.stylist+W.offer;
+  rows.forEach(function(r){
+    r.n={price:norm(r.p.pay,pr[0],pr[1],true),dist:norm(r.s.d,di[0],di[1],true),rate:norm(r.s.r,ra[0],ra[1]),stylist:r.st?norm(r.sr,sr[0],sr[1]):0,offer:norm(r.p.save/r.p.base,of[0],of[1])};
+    if(of[0]===of[1]&&of[1]===0)r.n.offer=0;
+    r.score=tw?Math.round((W.price*r.n.price+W.dist*r.n.dist+W.rate*r.n.rate+W.stylist*r.n.stylist+W.offer*r.n.offer)/tw*100):50;
+  });
+  rows.sort(function(a,b){return b.score-a.score||a.p.pay-b.p.pay});
+  return rows;
+}
+function reasons(r,all){
+  var out=[],lowest=Math.min.apply(0,all.map(function(x){return x.p.pay}));
+  var C={price:{t:r.p.pay===lowest?'Lowest price you pay: '+inr(r.p.pay):'Good value at '+inr(r.p.pay)+' after offers'},
+   dist:{t:'Close by at '+r.s.d+' km'},rate:{t:r.s.r+' stars from '+r.s.rv+' reviews'},
+   stylist:{t:r.st?r.st.n+', '+r.st.role.toLowerCase()+', '+r.st.r+' stars for this':'No specialist listed'},
+   offer:{t:r.p.offer?r.p.offer.l+' saves '+inr(r.p.save):'No offer on this service'}};
+  var keys=Object.keys(C).filter(function(k){return S.w[k]>0}).sort(function(a,b){return S.w[b]*r.n[b]-S.w[a]*r.n[a]});
+  keys.forEach(function(k){if(out.length<3&&r.n[k]>=0.7&&!(k==='offer'&&!r.p.offer)&&!(k==='stylist'&&!r.st))out.push(C[k].t)});
+  if(out.length<2){keys.forEach(function(k){if(out.length<2&&!(k==='offer'&&!r.p.offer)&&out.indexOf(C[k].t)<0)out.push(C[k].t)})}
+  return out;
+}
+/* ---------- svg ---------- */
+function hair(shape,c,id){
+  var P={long:'M27 62C22 18 78 18 73 62L78 108L22 108Z',bob:'M27 64C22 20 78 20 73 64L75 82L25 82Z',
+   wavy:'M27 60C22 18 78 18 73 60C82 75 68 85 76 100C68 110 58 101 50 108C42 101 32 110 24 100C32 85 18 75 27 60Z',bun:'M30 54C30 28 70 28 70 54C60 44 40 44 30 54Z'};
+  return '<svg viewBox="0 0 100 110" role="img" aria-hidden="true"><defs><linearGradient id="g'+id+'" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="'+c[0]+'"/><stop offset="1" stop-color="'+c[1]+'"/></linearGradient></defs>'+
+   '<rect width="100" height="110" fill="'+(shape==='bun'?'#d9cfe6':'#e6dff0')+'" opacity=".55"/>'+(shape==='bun'?'<circle cx="50" cy="24" r="10" fill="url(#g'+id+')"/>':'')+
+   '<path d="'+P[shape]+'" fill="url(#g'+id+')"/><ellipse cx="50" cy="60" rx="18" ry="22" fill="var(--skin)"/>'+
+   (shape==='bun'?'':'<path d="M32 52C40 40 60 40 68 52C60 47 40 47 32 52Z" fill="url(#g'+id+')"/>')+'</svg>';
+}
+/* hero art */
+$('#heroart').innerHTML=[['long',['#5a3b2e','#8a5a44']],['wavy',['#b8793a','#e6b46a']],['bob',['#2b2430','#4a3f57']]].map(function(a,i){return hair(a[0],a[1],'x'+i)}).join('');
+/* ---------- screens ---------- */
+function btnBack(){return '<button class="back" data-act="back" aria-label="Back">←</button>'}
+function stars(r){return r.toFixed(1)+' ★'}
+function offerAll(){var l=[];SALONS.forEach(function(s){s.offers.forEach(function(o){var applies=o.svc==='all'||o.svc.indexOf(S.service)>-1;if(applies){var v=o.pct?Math.round(s.price[S.service]*o.pct/100):o.flat;l.push({s:s,o:o,v:v})}})});l.sort(function(a,b){return b.v-a.v});return l}
+function homeLists(){
+  var q=S.q.trim().toLowerCase();
+  var hd=HAIRDOS.filter(function(h){return (S.face==='All'||h.faces.indexOf(S.face)>-1)&&(!q||h.n.toLowerCase().indexOf(q)>-1||SV[h.s].n.toLowerCase().indexOf(q)>-1)});
+  var ca=CARES.filter(function(c){return !q||SV[c.s].n.toLowerCase().indexOf(q)>-1||c.b.toLowerCase().indexOf(q)>-1});
+  var h='<div class="h-sec"><h3>Hairdos for you</h3><span class="sub">'+hd.length+' styles</span></div>';
+  h+=hd.length?'<div class="hscroll">'+hd.map(function(x){var lo=Math.min.apply(0,SALONS.map(function(s){return calc(s,x.s).pay}));return '<button class="hd" data-act="pickhd" data-id="'+x.id+'">'+hair(x.shape,x.c,x.id)+'<b>'+x.n+'</b><small>from '+inr(lo)+'</small></button>'}).join('')+'</div>':'<div class="empty">No styles match. Try another face shape or clear the search.</div>';
+  h+='<div class="h-sec"><h3>Hair-care treatments</h3></div>';
+  h+=ca.length?'<div class="hscroll">'+ca.map(function(x){var lo=Math.min.apply(0,SALONS.map(function(s){return calc(s,x.s).pay}));return '<button class="care" data-act="pickcare" data-s="'+x.s+'"><b>'+SV[x.s].n+'</b><small>Best for: '+x.b+'</small><small>'+x.res+' · '+SV[x.s].m+' min</small><span class="pill">from '+inr(lo)+'</span></button>'}).join('')+'</div>':'<div class="empty">No treatments match.</div>';
+  return h;
+}
+function vHome(){
+  var top=offerAll().slice(0,2);
+  return '<div class="sub">Sample area · within 4 km</div><h2>Find your next hairdo</h2>'+
+  '<input id="q" class="search" type="search" placeholder="Search styles, treatments, stylists" value="'+esc(S.q)+'" aria-label="Search">'+
+  '<div class="chips" role="group" aria-label="Face shape">'+['All','Oval','Round','Square','Heart'].map(function(f){return '<button class="chip" data-act="face" data-f="'+f+'" aria-pressed="'+(S.face===f)+'">'+f+'</button>'}).join('')+'</div>'+
+  '<div id="hl">'+homeLists()+'</div>'+
+  '<div class="h-sec"><h3>Offers near you</h3><button class="chip" data-act="nav" data-to="offers">See all</button></div>'+
+  top.map(function(t){return '<button class="offerstrip" data-act="opensalon" data-id="'+t.s.id+'"><div><b>'+t.o.l+'</b><br><span>'+t.s.n+' · '+SV[S.service].n+'</span></div><b>Save '+inr(t.v)+'</b></button>'}).join('');
+}
+function resList(){
+  var rows=rank();
+  if(!rows.length)return '<div class="empty">No salons within this distance. Choose a wider range.</div>';
+  var b=rows[0],rs=reasons(b,rows);
+  var h='<div class="best"><div class="tag">Best for you</div><div class="row"><div><h3>'+b.s.n+'</h3><div style="font-size:13px;opacity:.9">'+b.s.area+' · '+b.s.d+' km · '+stars(b.s.r)+'</div></div><div class="score">'+b.score+'<small>match</small></div></div>'+
+   '<ul>'+rs.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul>'+
+   '<div class="row" style="align-items:center"><div><div style="font-size:12px;opacity:.85">You pay</div><div style="font-family:var(--f-display);font-size:24px;font-weight:700">'+inr(b.p.pay)+(b.p.save?' <s style="font-size:13px;opacity:.7;font-weight:400">'+inr(b.p.base)+'</s>':'')+'</div></div><button class="btn sm" data-act="opensalon" data-id="'+b.s.id+'">View and book</button></div></div>';
+  h+='<div class="h-sec"><h3>Other options</h3><span class="sub">Tick up to 3 to compare</span></div>';
+  rows.slice(1).forEach(function(r){var on=S.cmp.indexOf(r.s.id)>-1;
+   h+='<div class="sc"><div class="r1"><div><b class="n">'+r.s.n+'</b><div class="sub">'+r.s.area+'</div></div><div class="price">'+(r.p.save?'<s>'+inr(r.p.base)+'</s>':'')+'<b>'+inr(r.p.pay)+'</b></div></div>'+
+   '<div class="facts"><span>'+r.s.d+' km</span><span>'+stars(r.s.r)+'</span><span>'+(r.st?r.st.n+' · '+r.st.r+' ★':'No specialist')+'</span><span>Match '+r.score+'</span></div>'+
+   (r.p.offer?'<div><span class="offerchip">'+r.p.offer.l+'</span></div>':'')+
+   '<div style="display:flex;justify-content:space-between;align-items:center"><label class="cmp"><input type="checkbox" data-act="cmp" data-id="'+r.s.id+'" '+(on?'checked':'')+'> Compare</label><button class="btn ghost sm" data-act="opensalon" data-id="'+r.s.id+'">View</button></div></div>'});
+  return h;
+}
+function cmpBar(){
+  if(S.screen!=='results')return '';
+  var n=S.cmp.length;
+  return n?'<div class="cmpbar" id="cmpbar"><span>'+n+' selected</span><button data-act="gocmp"'+(n<2?' disabled style="opacity:.5"':'')+'>Compare '+(n<2?'(pick 1 more)':'')+'</button></div>':'';
+}
+function vResults(){
+  var W=S.w,sl=[['price','Price'],['dist','Distance'],['rate','Rating'],['stylist','Stylist'],['offer','Offers']];
+  return '<div class="p-top">'+btnBack()+'<div><h2>'+SV[S.service].n+'</h2><div class="sub">'+(S.hd?S.hd+' · ':'')+'sample salons near you</div></div></div>'+
+  '<div class="chips" role="group" aria-label="Distance">'+[[2,'Within 2 km'],[4,'Within 4 km'],[99,'Any distance']].map(function(x){return '<button class="chip" data-act="within" data-v="'+x[0]+'" aria-pressed="'+(S.within===x[0])+'">'+x[1]+'</button>'}).join('')+'</div>'+
+  '<details class="prio" open><summary>What matters to you</summary>'+sl.map(function(x){return '<label for="w-'+x[0]+'">'+x[1]+'<input type="range" id="w-'+x[0]+'" min="0" max="5" step="1" value="'+W[x[0]]+'" data-w="'+x[0]+'"><span id="wv-'+x[0]+'">'+W[x[0]]+'</span></label>'}).join('')+'</details>'+
+  '<div id="rl">'+resList()+'</div>';
+}
+function vCompare(){
+  var rows=rank().filter(function(r){return S.cmp.indexOf(r.s.id)>-1});
+  var n=rows.length;
+  if(n<2)return '<div class="p-top">'+btnBack()+'<h2>Compare</h2></div><div class="empty">Tick two or three salons in the results to compare them side by side.<br><br><button class="btn" data-act="nav" data-to="results">Go to salons</button></div>';
+  var cols='84px repeat('+n+',1fr)';
+  var mn=function(f){return Math.min.apply(0,rows.map(f))},mx=function(f){return Math.max.apply(0,rows.map(f))};
+  function row(lab,f,disp,best){var b=best==='min'?mn(f):mx(f);return '<div class="rw" style="grid-template-columns:'+cols+'"><div class="lab">'+lab+'</div>'+rows.map(function(r){var win=f(r)===b&&n>1&&mn(f)!==mx(f);return '<div class="'+(win?'win':'')+'">'+disp(r)+'</div>'}).join('')+'</div>'}
+  var h='<div class="p-top">'+btnBack()+'<div><h2>Compare</h2><div class="sub">'+SV[S.service].n+'. Green is best in the row.</div></div></div><div class="ct">';
+  h+='<div class="rw" style="grid-template-columns:'+cols+'"><div></div>'+rows.map(function(r){return '<div class="hd2">'+r.s.n+'</div>'}).join('')+'</div>';
+  h+=row('You pay',function(r){return r.p.pay},function(r){return '<b>'+inr(r.p.pay)+'</b>'+(r.p.save?'<br><s>'+inr(r.p.base)+'</s>':'')},'min');
+  h+='<div class="rw" style="grid-template-columns:'+cols+'"><div class="lab">Offer</div>'+rows.map(function(r){return '<div>'+(r.p.offer?r.p.offer.l:'None')+'</div>'}).join('')+'</div>';
+  h+=row('Distance',function(r){return r.s.d},function(r){return r.s.d+' km'},'min');
+  h+=row('Rating',function(r){return r.s.r},function(r){return stars(r.s.r)+'<br>'+r.s.rv+' reviews'},'max');
+  h+=row('Stylist',function(r){return r.sr},function(r){return r.st?r.st.n+'<br>'+r.st.y+' yrs · '+r.st.r+' ★':'None'},'max');
+  h+=row('Match',function(r){return r.score},function(r){return r.score+'/100'},'max');
+  h+='<div class="rw" style="grid-template-columns:'+cols+'"><div class="lab">Next slot</div>'+rows.map(function(r){return '<div>'+r.s.slots[0]+'</div>'}).join('')+'</div>';
+  h+='<div class="rw" style="grid-template-columns:'+cols+'"><div></div>'+rows.map(function(r){return '<div><button class="btn sm" style="width:100%;padding:8px 2px" data-act="opensalon" data-id="'+r.s.id+'">View</button></div>'}).join('')+'</div></div>';
+  return h;
+}
+function vOffers(){
+  var l=offerAll();
+  return '<h2>Offers</h2><div class="sub">For '+SV[S.service].n+'. Choose a service on Explore to change this.</div><div style="margin-top:10px">'+
+   (l.length?l.map(function(t){return '<button class="offerstrip" data-act="opensalon" data-id="'+t.s.id+'"><div><b>'+t.o.l+'</b><br><span>'+t.s.n+' · '+t.s.d+' km · pay '+inr(t.s.price[S.service]-t.v)+'</span></div><b>Save '+inr(t.v)+'</b></button>'}).join(''):'<div class="empty">No offers on this service right now. Try another service.</div>')+'</div>'+
+   '<div class="h-sec"><h3>Switch service</h3></div><div class="chips">'+Object.keys(SV).map(function(k){return '<button class="chip" data-act="svc" data-s="'+k+'" aria-pressed="'+(S.service===k)+'">'+SV[k].n+'</button>'}).join('')+'</div>';
+}
+function vDetail(){
+  var s=SALONS.filter(function(x){return x.id===S.sid})[0],p=calc(s,S.service),tabs=[['ov','Overview'],['st','Stylists'],['mn','Menu'],['of','Offers']];
+  var h='<div class="p-top">'+btnBack()+'<span class="sub">Salon</span></div><div class="hero2"><h2>'+s.n+'</h2><div style="font-size:13px;opacity:.9">'+s.area+' · '+s.d+' km · '+stars(s.r)+' ('+s.rv+')</div></div>';
+  h+='<div class="tabs" role="tablist">'+tabs.map(function(t){return '<button role="tab" data-act="tab" data-t="'+t[0]+'" aria-selected="'+(S.tab===t[0])+'">'+t[1]+'</button>'}).join('')+'</div>';
+  if(S.tab==='ov'){
+    h+='<div class="sum"><div><span>'+SV[S.service].n+'</span><span>'+inr(p.base)+'</span></div>'+(p.offer?'<div style="color:var(--offer)"><span>'+p.offer.l+'</span><span>−'+inr(p.save)+'</span></div>':'')+'<div class="tot"><span>You pay</span><span>'+inr(p.pay)+'</span></div></div>'+
+     '<div class="li"><span>Hours</span><span>'+s.hrs+'</span></div><div class="li"><span>Duration</span><span>about '+SV[S.service].m+' min</span></div><div class="chips">'+s.am.map(function(a){return '<span class="chip" style="cursor:default">'+a+'</span>'}).join('')+'</div>';
+  }
+  if(S.tab==='st'){var l=s.st.slice().sort(function(a,b){return (b.sk.indexOf(S.service)>-1)-(a.sk.indexOf(S.service)>-1)||b.r-a.r});
+    h+=l.map(function(x){var m=x.sk.indexOf(S.service)>-1;return '<button class="stylist" data-act="pickst" data-n="'+x.n+'" aria-pressed="'+(S.stylist===x.n)+'"><span class="av">'+x.n[0]+'</span><span style="flex:1"><b>'+x.n+'</b> · '+x.role+'<small class="sub" style="display:block">'+x.y+' yrs · '+x.r+' ★ · '+x.sk.map(function(k){return SV[k].n}).join(', ')+'</small></span>'+(m?'<span class="pill">matches</span>':'')+'</button>'}).join('');}
+  if(S.tab==='mn'){h+=Object.keys(SV).map(function(k){var c=calc(s,k);return '<div class="li"><span><b'+(k===S.service?' style="color:var(--accent)"':'')+'>'+SV[k].n+'</b><small>'+SV[k].m+' min</small></span><span class="price">'+(c.save?'<s>'+inr(c.base)+'</s>':'')+'<b style="font-size:15px">'+inr(c.pay)+'</b></span></div>'}).join('')}
+  if(S.tab==='of'){h+=s.offers.map(function(o){return '<div class="offerstrip" style="cursor:default"><div><b>'+o.l+'</b><br><span>Applies to '+(o.svc==='all'?'all services':o.svc.map(function(k){return SV[k].n}).join(', '))+'</span></div></div>'}).join('')}
+  h+='<div style="position:sticky;bottom:0;padding-top:12px"><button class="btn" data-act="gobook">Book '+SV[S.service].n+' · '+inr(p.pay)+'</button></div>';
+  return h;
+}
+function vBook(){
+  var s=SALONS.filter(function(x){return x.id===S.sid})[0],p=calc(s,S.service);
+  var sts=s.st.filter(function(x){return x.sk.indexOf(S.service)>-1});if(!sts.length)sts=s.st;
+  if(!S.stylist||!sts.some(function(x){return x.n===S.stylist}))S.stylist=sts.slice().sort(function(a,b){return b.r-a.r})[0].n;
+  var ready=!!S.slot;
+  return '<div class="p-top">'+btnBack()+'<div><h2>Book</h2><div class="sub">'+s.n+' · '+SV[S.service].n+'</div></div></div>'+
+   '<div class="h-sec"><h3>Stylist</h3></div>'+sts.map(function(x){return '<button class="stylist" data-act="pickst2" data-n="'+x.n+'" aria-pressed="'+(S.stylist===x.n)+'"><span class="av">'+x.n[0]+'</span><span style="flex:1"><b>'+x.n+'</b> · '+x.role+'<small class="sub" style="display:block">'+x.y+' yrs · '+x.r+' ★</small></span></button>'}).join('')+
+   '<div class="h-sec"><h3>Saturday slots</h3></div><div class="chips">'+s.slots.map(function(t){return '<button class="chip" data-act="slot" data-t="'+t+'" aria-pressed="'+(S.slot===t)+'">'+t+'</button>'}).join('')+'</div>'+
+   '<div class="sum"><div><span>'+SV[S.service].n+'</span><span>'+inr(p.base)+'</span></div>'+(p.offer?'<div style="color:var(--offer)"><span>'+p.offer.l+'</span><span>−'+inr(p.save)+'</span></div>':'')+'<div class="tot"><span>Total at salon</span><span>'+inr(p.pay)+'</span></div></div>'+
+   '<div style="margin-top:14px"><button class="btn" data-act="confirm" '+(ready?'':'disabled style="opacity:.5"')+'>'+(ready?'Confirm booking':'Pick a time to continue')+'</button></div>';
+}
+function vDone(){
+  var s=SALONS.filter(function(x){return x.id===S.sid})[0],p=calc(s,S.service);
+  return '<div class="done"><div class="ok">✓</div><h2>You are booked</h2><p class="sub" style="margin-top:6px">Saturday at '+S.slot+' with '+S.stylist+'</p>'+
+   '<div class="sum" style="text-align:left"><div><span>Salon</span><span>'+s.n+'</span></div><div><span>Service</span><span>'+SV[S.service].n+'</span></div><div class="tot"><span>You pay</span><span>'+inr(p.pay)+'</span></div></div>'+
+   '<p class="sub" style="margin:12px 0">Prototype only. No real booking was made.</p><button class="btn" data-act="home">Back to Explore</button></div>';
+}
+var NOTES={
+ home:['Start from the style','People describe the look first, so the home screen is a gallery of hairdos and treatments. Tapping one already sets the service, which removes the step of decoding salon menus. Face-shape chips and search narrow the list.'],
+ results:['One answer, with reasons','The top card gives a single recommendation and up to three plain reasons, so the ranking can be trusted. Sliders let people say what matters, and results update as they drag. Other salons stay one scroll away.'],
+ compare:['Winners at a glance','Limited to three salons so columns stay readable. The row that matters most, what you actually pay, comes first. Green plus bold marks the best value in each row, so colour is never the only signal.'],
+ detail:['Detail answers the last doubts','The price breakdown shows the offer applied before anyone books. Stylists who match the service come first. The menu lists every service so people can add a treatment later.'],
+ book:['Two choices, then done','Only the stylist and the time are left to choose. The total is shown again, and the button says what is missing until a slot is picked.'],
+ done:['Close the loop','Confirmation repeats the key facts. In production this triggers a reminder and, after the visit, the two-question review about result and price.'],
+ offers:['Offers as a comparison, not a poster','Each offer shows the saving in rupees and the final price, so a percentage and a flat discount can be compared directly.']};
+function render(keep){
+  var v={home:vHome,results:vResults,compare:vCompare,detail:vDetail,book:vBook,done:vDone,offers:vOffers}[S.screen]();
+  var sc=$('#screen');sc.innerHTML=v;if(!keep)sc.scrollTop=0;
+  var old=$('#cmpbar');if(old)old.remove();
+  if(S.screen==='results'&&S.cmp.length){$('.phone').insertAdjacentHTML('beforeend',cmpBar())}
+  var hidenav=S.screen==='book'||S.screen==='done';
+  var map={home:'home',results:'results',compare:'results',detail:'results',offers:'offers'};
+  $('#pnav').hidden=hidenav;
+  $('#pnav').innerHTML=[['home','Explore'],['results','Salons'],['offers','Offers']].map(function(x){return '<button data-act="nav" data-to="'+x[0]+'" '+(map[S.screen]===x[0]?'aria-current="true"':'')+'>'+x[1]+'</button>'}).join('');
+  var n=NOTES[S.screen];$('#why').innerHTML='<h3>Design decision</h3><p style="margin-top:6px"><b>'+n[0]+'.</b> '+n[1]+'</p>';
+}
+function go(to){if(to!==S.screen){S.back.push(S.screen)}S.screen=to;render()}
+/* ---------- events ---------- */
+document.addEventListener('click',function(e){
+  var t=e.target.closest('[data-act]');if(!t||!t.closest('.phone'))return;var a=t.dataset.act;
+  if(a==='back'){S.screen=S.back.pop()||'home';render()}
+  else if(a==='nav'){S.back=[];S.screen=t.dataset.to;render()}
+  else if(a==='home'){S.back=[];S.cmp=[];S.slot=null;S.screen='home';render()}
+  else if(a==='face'){S.face=t.dataset.f;render(true)}
+  else if(a==='pickhd'){var h=HAIRDOS.filter(function(x){return x.id===t.dataset.id})[0];S.service=h.s;S.hd=h.n;S.cmp=[];go('results')}
+  else if(a==='pickcare'){S.service=t.dataset.s;S.hd=null;S.cmp=[];go('results')}
+  else if(a==='svc'){S.service=t.dataset.s;S.hd=null;render(true)}
+  else if(a==='within'){S.within=+t.dataset.v;S.cmp=S.cmp.filter(function(id){return SALONS.some(function(s){return s.id===id&&s.d<=S.within})});render(true)}
+  else if(a==='opensalon'){S.sid=t.dataset.id;S.tab='ov';S.stylist=null;S.slot=null;go('detail')}
+  else if(a==='tab'){S.tab=t.dataset.t;render(true)}
+  else if(a==='pickst'){S.stylist=t.dataset.n;render(true)}
+  else if(a==='pickst2'){S.stylist=t.dataset.n;render(true)}
+  else if(a==='gobook'){go('book')}
+  else if(a==='slot'){S.slot=t.dataset.t;render(true)}
+  else if(a==='confirm'&&S.slot){S.screen='done';render()}
+  else if(a==='gocmp'&&S.cmp.length>1){go('compare')}
+});
+document.addEventListener('change',function(e){
+  var t=e.target;if(t.dataset&&t.dataset.act==='cmp'){var id=t.dataset.id,i=S.cmp.indexOf(id);
+    if(t.checked){if(S.cmp.length>=3){t.checked=false;return}S.cmp.push(id)}else if(i>-1)S.cmp.splice(i,1);
+    render(true)}
+});
+document.addEventListener('input',function(e){
+  var t=e.target;
+  if(t.id==='q'){S.q=t.value;$('#hl').innerHTML=homeLists()}
+  else if(t.dataset&&t.dataset.w){S.w[t.dataset.w]=+t.value;$('#wv-'+t.dataset.w).textContent=t.value;$('#rl').innerHTML=resList()}
+});
+render();
+</script>
+
+<!--claude-mermaid-runtime-begin:3477-->
+<style>.mermaid-diagram{margin-block:4px}.mermaid-diagram svg{display:block;margin:0 auto;max-width:100%;height:auto}</style>
+<script src="/_runtime/mermaid-11.16.1.min.js"></script>
+<script>(function(){
+var CFG={"palettes":{"light":{"surface":"#f4efe4","text":"#42392e","line":"#8a7f6d","border":"#7a6c52","bg":"#fffdf8"},"dark":{"surface":"#262b34","text":"#f2f3f5","line":"#a8adb8","border":"#9aa4b8","bg":"#1f232b"}}};
+if(typeof mermaid==='undefined')return;
+var pres=Array.prototype.slice.call(document.querySelectorAll('pre.mermaid')).filter(function(p){if(p.hasAttribute('data-claude-mermaid-claimed'))return false;p.setAttribute('data-claude-mermaid-claimed','1');return true;});
+if(!pres.length)return;
+var mq=window.matchMedia?window.matchMedia('(prefers-color-scheme: dark)'):null;
+var root=document.documentElement;
+var items=pres.map(function(pre){
+var mount=document.createElement('div');mount.className='mermaid-diagram';
+return {pre:pre,mount:mount,src:pre.textContent||''};
+});
+var seq=0;
+var renderGen=0;
+var lastKey='';
+function pageBg(fallback){
+var els=[document.body,document.documentElement];
+for(var i=0;i<els.length;i++){
+var c=els[i]&&getComputedStyle(els[i]).backgroundColor;
+if(c&&c!=='transparent'&&c!=='rgba(0, 0, 0, 0)')return c;
+}
+return fallback;
+}
+function render(){
+var theme=root.getAttribute('data-theme');
+var dark=theme==='dark'||(!!(mq&&mq.matches)&&theme!=='light');
+var pal=dark?CFG.palettes.dark:CFG.palettes.light;
+var bg=pageBg(pal.bg);
+var key=(dark?'d':'l')+'|'+bg;
+if(key===lastKey)return;
+lastKey=key;
+var gen=++renderGen;
+var font=getComputedStyle(document.body).fontFamily||'sans-serif';
+var nat={useMaxWidth:false};
+mermaid.initialize({
+startOnLoad:false,securityLevel:'strict',theme:'base',
+flowchart:nat,sequence:nat,er:nat,state:nat,class:nat,pie:nat,
+gantt:nat,journey:nat,timeline:nat,gitGraph:nat,mindmap:nat,xyChart:nat,
+quadrantChart:nat,sankey:nat,c4:nat,requirement:nat,block:nat,
+packet:nat,kanban:nat,architecture:nat,radar:nat,
+themeVariables:{background:bg,mainBkg:pal.surface,primaryColor:pal.surface,
+primaryTextColor:pal.text,lineColor:pal.line,primaryBorderColor:pal.border,
+nodeBorder:pal.border,clusterBorder:pal.border,edgeLabelBackground:bg,
+clusterBkg:'rgba(127,127,127,0.07)',titleColor:pal.text,
+darkMode:dark,rowOdd:bg,rowEven:'rgba(127,127,127,0.07)',
+attributeBackgroundColorOdd:bg,attributeBackgroundColorEven:'rgba(127,127,127,0.07)',
+fontSize:'16px',fontFamily:font},
+themeCSS:'.node rect, .node circle, .node polygon, .node path, .cluster rect { stroke-width: 2px; }'
+});
+items.forEach(function(it){
+var id='claude-mermaid-'+seq++;
+mermaid.render(id,it.src).then(function(r){
+if(gen!==renderGen)return;
+var prev=it.pre.previousElementSibling;
+if(prev&&prev.className==='mermaid-diagram'&&prev!==it.mount)return;
+it.mount.innerHTML=r.svg;
+if(!it.mount.parentNode)it.pre.parentNode.insertBefore(it.mount,it.pre);
+it.pre.style.display='none';
+},function(){
+var scratch=document.getElementById(id);
+if(scratch)scratch.parentNode.removeChild(scratch);
+scratch=document.getElementById('d'+id);
+if(scratch)scratch.parentNode.removeChild(scratch);
+if(gen!==renderGen)return;
+if(it.mount.parentNode)it.mount.parentNode.removeChild(it.mount);
+it.pre.style.display='';
+});
+});
+}
+render();
+if(mq&&mq.addEventListener)mq.addEventListener('change',render);
+if(typeof MutationObserver!=='undefined')new MutationObserver(render).observe(root,{attributes:true,attributeFilter:['data-theme']});
+})();</script>
+<!--claude-mermaid-runtime-end-->
+
+</body></html>
